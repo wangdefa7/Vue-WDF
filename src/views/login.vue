@@ -41,7 +41,8 @@ export default {
       password:'',
       repeat:'',
       msg:'无数据了',
-      msg2:'no msg'
+      msg2:'no msg',
+      url:'39.96.23.140'
     }
   },
   methods:{
@@ -78,13 +79,13 @@ export default {
   },
   mounted () {
     axios
-      .get('http://localhost/vueAxios/vueData?vue='+'I am Vue')
+      .get('http:////'+ this.url +'/vueAxios/vueData?vue='+'I am Vue')
       .then(response => (this.msg = response.data))
       .catch(function (error) { // 请求失败处理
         console.log(error);
       });
        axios
-      .get('http://localhost/vueAxios/vueData?vue='+'I am Vue2')
+      .get('http://'+ this.url +'/vueAxios/vueData?vue='+'I am Vue2')
       .then(function(response){
           this.msg2 = response.data
           console.log(response)
