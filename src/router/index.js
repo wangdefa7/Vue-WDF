@@ -6,6 +6,7 @@ import home from '@/views/home'
 import login from '@/views/login.vue'
 import user from '@/views/user'
 import add from '@/views/add'
+import basic from '@/views/basic/idElem.vue'
 
 Vue.use(Router)
 
@@ -14,6 +15,7 @@ export default new Router({
   linkActiveClass:'active',
   base: process.env.BASE_URL,
   routes: [
+    //登录控制路由 start
     {
       path: '/',
       name: 'login',
@@ -40,6 +42,14 @@ export default new Router({
         //component: () => import('@/views/user')
       },
     ]
-    }
+    },
+    //登录控制路由 end
+
+      //基础语法练习 路由
+      {
+        path: '/basic',
+        name: 'basic',
+        component: basic
+      }
   ]
 })

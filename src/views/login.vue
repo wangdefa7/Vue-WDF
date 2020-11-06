@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button type="button" @click="openBasicPage()" >基础练习</button>
     <form action="" v-if="!isReg">
         用户名：<input type="text" v-model="name">
         密码：<input type="text" v-model="password"> 
@@ -75,6 +76,9 @@ export default {
     },
     cancel(){
         this.isReg=false
+    },
+    openBasicPage(){
+      this.$router.push('/basic')
     }
   },
   mounted () {
