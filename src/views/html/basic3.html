@@ -6,7 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-    <title>Document</title>
+    <title>Vue-class</title>
+
+    <style>
+        .base {
+            width: 100px;
+            height: 100px;
+        }
+
+        .active {
+            background: green;
+        }
+
+        .text-danger {
+            background: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,6 +39,14 @@
         千米 : <input type="text" v-model="kilometers">
         米 : <input type="text" v-model="meters">
         <p id="info"></p>
+        <hr>
+        单一属性
+        <div v-bind:class="{ 'active': isActive ,'base': isActive}"></div>
+        监听方法
+        <div v-bind:class="classObject"></div>
+        数组添加样式：源于data元素(v-bind：style)
+        <div v-bind:style='[baseStyles,overridingStyles]'>组合样式:v-bind：style=</div>
+        <hr>
     </div>
 
     <script type="text/javascript">
@@ -35,7 +58,20 @@
                 name: 'Google',
                 url: 'http://www.google.com',
                 kilometers: 0,
-                meters: 0
+                meters: 0,
+                isActive: true,
+                error: {
+                    value: true,
+                    type: 'fatal'
+                },
+                //数组样式
+                baseStyles: {
+                    color: 'green',
+                    fontSize: '30px'
+                },
+                overridingStyles: {
+                    'font-weight': 'bold'
+                }
             },
             /**
              * computed vs methods
@@ -56,6 +92,14 @@
                         var names = newValue.split(' ')
                         this.name = names[0]
                         this.url = names[names.length - 1]
+                    }
+                },
+                //检测class的类型
+                classObject: function () {
+                    return {
+                        base: true,
+                        active: this.isActive && !this.error.value,
+                        'text-danger': this.error.value && this.error.type === 'fatal',
                     }
                 }
             },

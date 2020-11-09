@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>组件component</title>
+</head>
+
+<body>
+    组件可以扩展 HTML 元素，封装可重用的代码。
+    组件可以扩展 HTML 元素，封装可重用的代码。
+    Vue.component(tagName, options)
+    tagName 为组件名，options 为配置选项。注册后，我们可以使用以下方式来调用组件：
+    &lttagName&gt &lt/tagName&gt
+
+    <div id="id1">
+        <ol>
+            //遍历的属性的值与props的值进行绑定
+            <todo-item v-for='item in sites' v-bind:todo = 'item'></todo-item>
+        </ol>
+
+    </div>
+    <script type="text/javascript">
+        //创建组件
+        Vue.component('todo-item', {
+            //检查元素属性是否符合规范
+            props: {
+                'todo': {
+                    // 带有默认值的数字
+                     type: Object,
+                    // default: 100,
+                    validator: function(value){
+                        console.log(value.text)
+                        if(value.text == ''){
+                            value.text = '空值'
+                        }
+                        //传入的值一定要返回，否则提示警告：Invalid prop: custom validator check failed for prop "todo".
+                        return value;
+                    }
+                
+                }
+            },
+            //默认的组件页面内容
+            template: '<li> {{todo.text}} </li>'
+
+        });
+
+        new Vue({
+            el: '#id1',
+            data: {
+                sites: [
+                    { text: 111 },
+                    { text: 222 },
+                    { text: '' },
+                    { text: 'Taobao' }
+                ]
+            }
+
+        })
+    </script>
+</body>
+
+</html>
