@@ -14,6 +14,6 @@ export default{
         
     }
 }
-vm.message='改变了'
+//vm.message='改变了'
 
 </script>

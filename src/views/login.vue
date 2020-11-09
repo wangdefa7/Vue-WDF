@@ -21,6 +21,8 @@
     </form>
     <div>
       <p>第一个get:</p>
+      <!-- <input v-model="sendMsg" @change="onChange"> -->
+      <input v-model="sendMsg" @keyup="onChange">
       {{msg}}
     </div>
     <div>
@@ -41,6 +43,7 @@ export default {
       name:'',
       password:'',
       repeat:'',
+      sendMsg:'I am Vue',
       msg:'无数据了',
       msg2:'no msg',
       url:'39.96.23.140'
@@ -77,19 +80,35 @@ export default {
     cancel(){
         this.isReg=false
     },
+    //跳转页面
     openBasicPage(){
       this.$router.push('/basic')
+    },
+    //监听输入框的改变
+    onChange(){
+      console.log(this.sendMsg);
+      this.getReqest();
+    },
+    //get请求
+    getReqest(){
+       axios
+      .get('http:////'+ this.url +'/vueAxios/vueData?vue='+this.sendMsg)
+      .then(response => (this.msg = response.data))
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
     }
+
   },
   mounted () {
     axios
-      .get('http:////'+ this.url +'/vueAxios/vueData?vue='+'I am Vue')
+      .get('http:////'+ this.url +'/vueAxios/vueData?vue='+this.sendMsg)
       .then(response => (this.msg = response.data))
       .catch(function (error) { // 请求失败处理
         console.log(error);
       });
        axios
-      .get('http://'+ this.url +'/vueAxios/vueData?vue='+'I am Vue2')
+      .get('http://'+ this.url +'/vueAxios/vueData?vue='+ this.sendMsg+'2')
       .then(function(response){
           this.msg2 = response.data
           console.log(response)

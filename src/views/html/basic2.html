@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    v-for 指令需要以 site in sites 形式的特殊语法， sites 是源数据数组并且 site 是数组元素迭代的别名。
+    <div id="app-for1">
+        <ul>
+            <template v-for="site in sites">
+                <li>{{ site.name }}</li>
+                <li>{{site}}</li>
+                <li>--------------</li>
+            </template>
+        </ul>
+        输出键值对的形式
+        <ul>
+            <li v-for="v in map">
+                {{v}}
+            </li>
+        </ul>
+        输出每个具体的属性(值，键，序号)
+        <ul>
+            <li v-for="(value, key, index) in map">
+             {{ index }}. {{ key }} : {{ value }}
+            </li>
+          </ul>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#app-for1',
+            data: {
+                //数组结构（每个数组里面又包含了一个键值对）
+                sites: [
+                    { name: 'Runoob' },
+                    { name: 'Google' },
+                    { name: 'Taobao' }
+                ],
+                //键值对的形式
+                map:{
+                    a: 'aaa',
+                    b: 'bbb',
+                    c: 'ccc'
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

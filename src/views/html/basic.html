@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- 只能单页面练习 -->
 
 <head>
     <meta charset="UTF-8">
@@ -73,6 +74,23 @@
     验证属性
     <props-demo-advanced id='app-8' v-bind:age='1'></props-demo-advanced>
 
+    <!-- 在两个大括号中 -->
+    <div id='app-filter'>
+        <input v-model='message'>
+        {{ message | capitalize }}
+    </div>
+
+    if|else
+    <div  id='app-if'>
+        <input type="checkbox" v-model='flag1'>
+        <div v-if='flag1'>
+            <h6>if</h6>
+        </div>
+        <div v-else>
+            <h6>else</h6>
+        </div>
+        <div v-show='flag1'>v-show</div>
+    </div>
     <script type="text/javascript">
         var app = new Vue({
             el: '#app',
@@ -170,6 +188,31 @@
                         return value >= 0
                     }
                 }
+            }
+        })
+
+        var appfilter = new Vue({
+            el: '#app-filter',
+            data: {
+                message:'hello过滤器'
+            },
+            //过滤器标签
+            filters: {
+                capitalize: function(value){
+                    console.log(value)
+                    if(!value) return '';
+                    value = value.toString();
+                    //首字母大写，拼上后面的元素
+                    return value.charAt(0).toUpperCase() + value.slice(1)
+
+                }
+            }
+        })
+
+        var appflag = new Vue({
+            el : '#app-if',
+            data : {
+                flag1 : true
             }
         })
 

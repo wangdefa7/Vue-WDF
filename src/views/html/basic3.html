@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="id1">
+        大括号内部实现字符串的翻转
+        {{ message.split('').reverse().join('') }}
+        <br>
+        <input v-model='message'>
+        <p>原始字符串: {{ message }}</p>
+        <p>计算后反转字符串: {{ reversedMessage }}</p>
+
+        <hr>
+        换算米/千米<br>
+        千米 : <input type="text" v-model="kilometers">
+        米 : <input type="text" v-model="meters">
+        <p id="info"></p>
+    </div>
+
+    <script type="text/javascript">
+
+        var vm = new Vue({
+            el: '#id1',
+            data: {
+                message: 'Hello',
+                name: 'Google',
+                url: 'http://www.google.com',
+                kilometers: 0,
+                meters: 0
+            },
+            /**
+             * computed vs methods
+             *   我们可以使用 methods 来替代 computed，效果上两个都是一样的，但是 computed 是基于它的依赖缓存，只有相关依赖发生改变时才会重新取值。而使用 methods ，在重新渲染的时候，函数总会重新调用执行。
+             **/
+            computed: {
+                reversedMessage: function () {
+                    //join把数组的所有元素放到一个字符串
+                    return this.message.split('').reverse().join('')
+                },
+                site: {
+                    // getter
+                    get: function () {
+                        return this.name + ' ' + this.url
+                    },
+                    // setter
+                    set: function (newValue) {
+                        var names = newValue.split(' ')
+                        this.name = names[0]
+                        this.url = names[names.length - 1]
+                    }
+                }
+            },
+            watch: {
+                kilometers: function (val) {
+                    this.kilometers = val;
+                    this.meters = this.kilometers * 1000
+                },
+                meters: function (val) {
+                    this.kilometers = val / 1000;
+                    this.meters = val;
+                }
+            }
+        })
+
+        // 调用 setter， vm.name 和 vm.url 也会被对应更新
+        vm.site = '菜鸟教程 http://www.runoob.com';
+        document.write('name: ' + vm.name);
+        document.write('<br>');
+        document.write('url: ' + vm.url);
+
+        //监听属性 watch，我们可以通过 watch 来响应数据的变化。
+        vm.$watch('message', function (nval, oval) {
+            alert('message的变化 :' + oval + ' 变为 ' + nval + '!');
+        });
+
+        // $watch 是一个实例方法
+        vm.$watch('kilometers', function (newValue, oldValue) {
+            // 这个回调将在 vm.kilometers 改变后调用
+            document.getElementById("info").innerHTML = "修改前值为: " + oldValue + "，修改后值为: " + newValue;
+        });
+
+    </script>
+</body>
+
+</html>
